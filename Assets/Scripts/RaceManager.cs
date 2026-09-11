@@ -22,6 +22,11 @@ public class RaceManager : MonoBehaviour
     public Vector3 m_GizmoOffset = new Vector3(0.0f, 2.0f, 0.0f);
 
     private int m_CurrentLapsCompleted;
+
+    public void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
     public int CurrentLap
     {
         get { return m_CurrentLapsCompleted + 1; }

@@ -46,6 +46,8 @@ public class CarControl : MonoBehaviour
     [Header("Input Actions")]
     public InputActionAsset m_InputActions;
 
+    private MobileInputManager m_mobileInputManager;
+
     private bool m_IsControllable = false;
     public bool Controllable
     {
@@ -89,6 +91,8 @@ public class CarControl : MonoBehaviour
     private void Start()
     {
         m_InputActions.Enable();
+
+        m_mobileInputManager = FindFirstObjectByType<MobileInputManager>();
 
         m_CurrentLightEmissive = m_ReverseLightEmissiveStrengths.x;
         m_ReverseLightMaterial.SetFloat("_EmissiveStrength", m_CurrentLightEmissive);
@@ -150,25 +154,53 @@ public class CarControl : MonoBehaviour
             return;
         }
 
-        // Get player input for acceleration and steering
-        float vInput = m_InputActions.FindAction("Drive").ReadValue<Vector2>().y; // Forward/backward input
-        float hInput = m_InputActions.FindAction("Drive").ReadValue<Vector2>().x; // Steering input
-
-        // Slowly turn our steering
-        if (Mathf.Abs(hInput) > 0.1f)
+        //temp pc support
+        float keyboardInput = m_InputActions.FindAction("Drive").ReadValue<Vector2>().y;
+        float mobileInput = 0.0f;
+        if (m_mobileInputManager != null)
         {
-            m_CurrentTurn += hInput * m_SteerAcceleration * Time.fixedDeltaTime;
+            mobileInput = m_mobileInputManager.DriveInput;
+        }
+        float vInput = Mathf.Abs(mobileInput) > 0.01f ? mobileInput : keyboardInput;
+
+
+        // Get player input for acceleration and steering
+        //float vInput = 0.0f;
+        //if (m_mobileInputManager != null)
+        //{
+        //    vInput = m_mobileInputManager.DriveInput; // Forward/backward input
+        //}
+
+        float hInput = 0.0f;
+        if (m_mobileInputManager != null)
+        {
+            hInput = m_mobileInputManager.SteeringInput; // Steering input
+        }
+
+        // steering deadzone
+        if (Mathf.Abs(hInput) < 0.1f)
+        {
+            hInput = 0.0f;
         }
         else
         {
-            int sign = Mathf.RoundToInt(Mathf.Sign(m_CurrentTurn));
-            m_CurrentTurn -= Mathf.Sign(m_CurrentTurn) * m_SteerReturnAcceleration * Time.fixedDeltaTime;
+            //target steering based on stick position
+            float targetTurn = hInput;
 
-            // Checks for overshooting returning to zero
-            if (sign != Mathf.RoundToInt(Mathf.Sign(m_CurrentTurn)))
+            //use faster steering for turning, slower steering to return to centre
+            float steeringSpeed;
+
+            if (Mathf.Approximately(targetTurn, 0.0f))
             {
-                m_CurrentTurn = 0.0f;
+                steeringSpeed = m_SteerReturnAcceleration;
             }
+            else
+            {
+                steeringSpeed = m_SteerReturnAcceleration;
+            }
+
+            //move smooth toward requested steering
+            m_CurrentTurn = Mathf.MoveTowards(m_CurrentTurn, targetTurn, steeringSpeed * Time.fixedDeltaTime);
         }
         m_CurrentTurn = Mathf.Clamp(m_CurrentTurn, -1.0f, 1.0f);
 

@@ -7538,6 +7538,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1829604648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1171850454 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7953514128776659575, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+  m_PrefabInstance: {fileID: 8652698768130092761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2af1c753d59de44a2b30ea93243e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnalogStickInput
+--- !u!1 &1241078222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241078224}
+  - component: {fileID: 1241078223}
+  m_Layer: 0
+  m_Name: RotationInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1241078223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241078222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbea55aa50006f49b473bbf515bdd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotationInput
+  m_maxTiltAngle: 25
+--- !u!4 &1241078224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241078222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 631.7821, y: 642.79926, z: 8554.058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352928378
 GameObject:
   m_ObjectHideFlags: 0
@@ -11636,6 +11692,56 @@ Transform:
   - {fileID: 1616456906}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1837360590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837360591}
+  - component: {fileID: 1837360592}
+  m_Layer: 0
+  m_Name: MobileInputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1837360591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837360590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 631.7821, y: 642.79926, z: 8554.058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1837360592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837360590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ee15db1dceb7b4f8302c5158ce6ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobileInputManager
+  m_analogStick: {fileID: 1171850454}
+  m_relativeTouch: {fileID: 8652698768130092764}
+  m_rotationInput: {fileID: 1241078223}
+  m_acceleratePedal: {fileID: 8652698768130092763}
+  m_brakePedal: {fileID: 8652698768130092762}
+  m_defaultSensitivity: 1
 --- !u!1 &1839734132
 GameObject:
   m_ObjectHideFlags: 0
@@ -13716,6 +13822,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 236798198468815489, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2367407458224388389, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -13828,9 +13938,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5329538416183791478, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6210600067866925556, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482351383200002385, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8286095455080215348, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8953948111829042446, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13841,6 +13963,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+--- !u!114 &8652698768130092762 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4813896779921181335, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+  m_PrefabInstance: {fileID: 8652698768130092761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5faa392f05d2547469799897b9da87f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobilePedalInput
+--- !u!114 &8652698768130092763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 111522993641528806, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+  m_PrefabInstance: {fileID: 8652698768130092761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5faa392f05d2547469799897b9da87f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MobilePedalInput
+--- !u!114 &8652698768130092764 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4317417722389128820, guid: 1a6c793399e26a746a2f4d5c3bb68d9f, type: 3}
+  m_PrefabInstance: {fileID: 8652698768130092761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac262c8902feda4888cc30f4a548e0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RelativeTouch
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -13855,4 +14010,6 @@ SceneRoots:
   - {fileID: 8652698768130092761}
   - {fileID: 527102001}
   - {fileID: 1835099461}
+  - {fileID: 1837360591}
   - {fileID: 321714514}
+  - {fileID: 1241078224}

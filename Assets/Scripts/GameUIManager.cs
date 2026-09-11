@@ -5,6 +5,11 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages gameplay user interface, HUD, race info, countdowns, lap/race results, pause menu,
+/// settings menu, UI feedback
+/// Updates race data and also controls transistions between menus
+/// </summary>
 public class GameUIManager : MonoBehaviour
 {
     [Header("External Components")]
@@ -35,6 +40,7 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject m_BestLapStar;
 
     [SerializeField] private GameObject m_PauseMenu;
+    [SerializeField] private GameObject m_gameSettingsMenu;
     private bool m_isPaused = false;
 
 
@@ -54,41 +60,28 @@ public class GameUIManager : MonoBehaviour
     [Header("Input")]
     public InputActionAsset m_InputActions;
 
-
-    public void TogglePause()
-    {
-        if (m_RaceManager.CurrentState == RaceManager.RaceState.FINISHED)
-        {
-            return;
-        }
-        m_isPaused = !m_isPaused;
-        m_PauseMenu.SetActive(m_isPaused);
-
-        if (m_isPaused)
-        {
-            Time.timeScale = 0f;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-    }
-
+    /// <summary>
+    /// Function to resume time and deactivate menus
+    /// </summary>
     public void ResumeGame()
     {
         m_isPaused = false;
         m_PauseMenu.SetActive(false);
-        Time.timeScale = 1f;
+        m_gameSettingsMenu.SetActive(false);
+        Time.timeScale = 1.0f;
     }
-
+    /// <summary>
+    /// Function to resume time and reload current scene
+    /// </summary>
     public void RetryRace()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Function to resume time and go to the main menu scene
+    /// </summary>
     public void ReturnToMenu()
     {
         Time.timeScale = 1f;
@@ -211,7 +204,7 @@ public class GameUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function to display lap feedback
     /// </summary>
     private IEnumerator LapCompletePopup(float _lapTime, bool _newBest)
     {
@@ -253,13 +246,55 @@ public class GameUIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// handle state when using escape key in different menus
+    /// </summary>
+    private void HandleEscape()
+    {
+        //no pausing after race is finished
+        if (m_RaceManager.CurrentState == RaceManager.RaceState.FINISHED)
+        {
+            return;
+        }
+
+        //settings currently open
+        if (m_gameSettingsMenu.activeSelf)
+        {
+            CloseGameSettings();
+            return;
+        }
+
+        //pause menu currently open
+        if (m_isPaused)
+        {
+            ResumeGame();
+            return;
+        }
+
+        //game currently running
+        PauseGame();
+    }
+
+    /// <summary>
+    /// Function to stop time ingame and activate pause menu
+    /// </summary>
+    public void PauseGame()
+    {
+        m_isPaused = true;
+        m_PauseMenu.SetActive(true);
+        m_gameSettingsMenu.SetActive(false);
+        Time.timeScale = 0.0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    /// <summary>
     /// Our update loop from Unity, called as fast as possible 
     /// </summary>
     private void Update()
     {
         if (m_InputActions.FindAction("Pause").WasPressedThisFrame())
         {
-            TogglePause();
+            HandleEscape();
         }
         if (m_RaceManager.CurrentState != m_previousState)
         {
@@ -411,5 +446,23 @@ public class GameUIManager : MonoBehaviour
                 m_speedBars[i].color = m_speedInactiveColor;
             }
         }
+    }
+
+    /// <summary>
+    /// open settings menu from paused menu
+    /// </summary>
+    public void OpenGameSettings()
+    {
+        m_PauseMenu.SetActive(false);
+        m_gameSettingsMenu.SetActive(true);
+    }
+
+    /// <summary>
+    /// close settings menu from paused menu
+    /// </summary>
+    public void CloseGameSettings()
+    {
+        m_gameSettingsMenu.SetActive(false);
+        m_PauseMenu.SetActive(true);
     }
 }

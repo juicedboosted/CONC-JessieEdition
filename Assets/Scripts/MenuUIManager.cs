@@ -31,6 +31,7 @@ public class MenuUIManager : MonoBehaviour
     [SerializeField] private Color m_normalColor = Color.white;
 
     [SerializeField] private GameObject m_clearConfirm;
+    [SerializeField] private GameObject m_mainSettingsPanel;
 
     /// <summary>
     /// Function to quit
@@ -208,6 +209,24 @@ public class MenuUIManager : MonoBehaviour
         PlayerPrefs.DeleteAll();
         DisplayScores();
         m_clearConfirm.SetActive(false);
+    }
+
+    /// <summary>
+    /// open settings menu from main menu
+    /// </summary>
+    public void OpenMainSettings()
+    {
+        m_levelSelect.SetActive(false);
+        m_mainSettingsPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// close settings menu from main menu
+    /// </summary>
+    public void CloseGameSettings()
+    {
+        m_mainSettingsPanel.SetActive(false);
+        m_levelSelect.SetActive(true);
     }
 
     /// <summary>
