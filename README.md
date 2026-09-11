@@ -4,27 +4,27 @@ A mobile import and UI implementation I did for an assignment.
 ---------------------------------------
 An android mobile racing game developed in Unity and C#.
 
-##Features
+## Features
 -----------
 - Three racing levels
 - Lap/Race personal best tracking
 - Three steering options: Analog Stick, Relative Touch and Device Tilt
 
-##Controls
+## Controls
 -----------
-###ANALOG STICK
+### ANALOG STICK
 Drag the analog stick left or right to steer the car
 
-###RELATIVE TOUCH
+### RELATIVE TOUCH
 Touch the screen and drag left or right to steer
 
-###DEVICE TILT
+### DEVICE TILT
 Tilt your device left or right to steer.
 
-###PEDALS
+### PEDALS
 Use the point and palm hand signals to accelerate or brake/reverse.
 
-##External Assets + Credits
+## External Assets + Credits
 ---------------------------
 template racing game by Alexa, my lecturer :3
 
